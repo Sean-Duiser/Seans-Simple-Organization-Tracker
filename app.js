@@ -1,12 +1,12 @@
 const inquirer = require('inquirer');
-const fs = require("fs");
+const fs = require('fs');
 const mysql = require('mysql2');
 require('console.table');
 
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: 'organizationdDb',
+    database: 'organization_db',
 });
 
 const mainMenu = () => {
@@ -48,8 +48,10 @@ const mainMenu = () => {
 };
 
 const viewAllDepartments = () => {
-    connection.query(
-        'SELECT * FROM department;',
+    connection.query(`
+        SELECT * 
+        FROM department;
+        `,
         (err, results) => {
             console.table(results);
             mainMenu();
@@ -58,8 +60,10 @@ const viewAllDepartments = () => {
 };
 
 const viewAllRoles = () => {
-    connection.query(
-        'SELECT * FROM role;',
+    connection.query(`
+        SELECT * 
+        FROM role;
+        `,
         (err, results) => {
             console.table(results);
             mainMenu();
@@ -68,11 +72,26 @@ const viewAllRoles = () => {
 };
 
 const viewAllEmployees = () => {
-
+    connection.query(`
+        SELECT * 
+        FROM employee
+        INNER JOIN role
+        ON employee.role_id = role.id
+        LEFT JOIN department
+        ON role.department_id = department.id;
+        `,
+        (err, results) => {
+            console.table(results);
+            mainMenu();
+        }
+    )
 };
 
 const addNewDepartment = () => {
-
+    db.query('INSERT INTO movies SET ?', req.body, function (err, result) {
+        console.table(result);
+        res.json(result);
+      });
 };
 
 const addNewRole = () => {

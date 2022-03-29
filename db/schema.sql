@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS organizationdDb;
-CREATE DATABASE organizationdDb;
-USE organizationdDb;
+DROP DATABASE IF EXISTS organization_db;
+CREATE DATABASE organization_db;
+USE organization_db;
 
 DROP TABLE IF EXISTS department;
 DROP TABLE IF EXISTS role;
