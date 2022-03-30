@@ -73,13 +73,13 @@ const viewAllRoles = () => {
 
 const viewAllEmployees = () => {
     connection.query(`
-        SELECT * 
-        FROM employee
-        INNER JOIN role
-        ON employee.role_id = role.id
-        LEFT JOIN department
-        ON role.department_id = department.id;
-        `,
+    SELECT employee.id, CONCAT(employee.first_name,' ',employee.last_name) AS employee_name, role.title, department.name AS department, role.salary, employee.manager_id
+    FROM employee
+    JOIN role
+    ON employee.role_id = role.id
+    JOIN department
+    ON role.department_id = department.id
+    `,
         (err, results) => {
             console.table(results);
             mainMenu();
